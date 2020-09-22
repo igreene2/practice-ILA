@@ -10,7 +10,7 @@ using namespace ilang;
 int main() {
   SetToStdErr(1);
   // get the ILA model
-  auto hlscnn = hlscnn::GetHlscnnIla("hlscnn");
+  auto max = hlscnn::GetHlscnnIla("hlscnn");
 
   ILA_INFO << "#child: " << hlscnn.child_num();
   ILA_INFO << "#instr: " << hlscnn.instr_num();
