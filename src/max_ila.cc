@@ -15,8 +15,8 @@
     auto data_in = m.NewBvInput("data_in", 8 ),
 
     // internal arch state (registers)
-    auto start_addr = m.NewBvState("start_addr", 16 ),
-    auto array_len = m.NewBvState("array_len" , 16 ),
+    auto start_addr = m.NewBvState("start_addr", 16),
+    auto array_len = m.NewBvState("array_len" , 16),
 
     // the memory: 160 bytes
     auto mem = m.NewMemState("mem", 16, 10),
@@ -26,9 +26,8 @@
 
     // AES fetch function -- what corresponds to instructions
     // model.SetFetch(Concat(cmd, Concat(cmdaddr, cmddata)));
+    // How should I do fetch function?
     m.SetFetch(Concat(mode, Concat(addr_in, data_in)));
-    // Valid instruction: cmd == 1 or cmd == 2
-    //model.SetValid((cmd == 1) | (cmd == 2));
     
     // Valid instruction: mode == 1
     m.SetValid(mode == 1);
@@ -39,7 +38,7 @@
 
     instr.SetDecode((mode == 1) & (addr_in == 0xA1));
 
-    instr.SetUpdate(start_addr, addr_in); // update a start_addr
+    instr.SetUpdate(start_addr, data_in); // update a start_addr
 
     // guarantees no change
     // if not specified, it means it allows any change
@@ -55,7 +54,6 @@
     instr.SetDecode((mode == 1) & (addr_in == 0xA2)); // is addr_in meant to be a decode thing?
     
     instr.SetUpdate(array_len, data_in);
-    //????????? is data_in the array_len? if not what is it?
     instr.SetUpdate(start_addr, start_addr);
 
   }
@@ -72,10 +70,16 @@
     // what exactly am I cycling through 
     // Accelerator has an internal memory size is 160 Byte (memory address range 0x0 ~ 0x9F).
 
+    auto value_at_addr_2 = ilang::Load(const_mem, 0x2);
+    auto update_memory_at_x = ilang::Store(const_mem, x, y);
+   
+
     int temp = 0; 
+    // do I need to do any conversions here? like from binary??
     for (i = start_addr; i < array_len; i++) {
-        if (mem[i] > temp) {
-            temp = mem[i];
+        auto value_at_addr_i = ilang::Load(mem, i);
+        if (value_at_addr_i > temp) {
+            temp = value_at_addr_i;
         }
     }
 
@@ -92,7 +96,7 @@
 
     instr.SetDecode(mode == 1);
 
-    instr.SetUpdate(mem[addr_in], result);
+    auto update_memory_at_addrin = ilang::Store(mem, addr_in, result);
 
     // guarantee no change
     instr.SetUpdate(start_addr, start_addr);
