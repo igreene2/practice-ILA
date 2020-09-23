@@ -77,13 +77,9 @@ namespace max {
             // what exactly am I cycling through 
             // Accelerator has an internal memory size is 160 Byte (memory address range 0x0 ~ 0x9F).
 
-            auto value_at_addr_2 = ilang::Load(const_mem, 0x2);
-            auto update_memory_at_x = ilang::Store(const_mem, x, y);
-        
-
             int temp = 0; 
             // do I need to do any conversions here? like from binary??
-            for (i = start_addr; i < array_len; i++) {
+            for (int i = m.state("start_addr"); i < m.state("array_len"); i++) {
                 auto value_at_addr_i = ilang::Load(mem, i);
                 if (value_at_addr_i > temp) {
                     temp = value_at_addr_i;
