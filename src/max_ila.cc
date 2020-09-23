@@ -16,19 +16,19 @@ namespace max {
             auto m = ilang::Ila("MAX");
             // inputs
             // 0 - read, 1 - write
-            auto mode = m.NewBoolInput("mode");
-            auto addr_in = m.NewBvInput("addr_in", 8),
-            auto data_in = m.NewBvInput("data_in", 8 ),
+            m.NewBoolInput("mode");
+            m.NewBvInput("addr_in", 8),
+            m.NewBvInput("data_in", 8),
 
             // internal arch state (registers)
-            auto start_addr = m.NewBvState("start_addr", 16),
-            auto array_len = m.NewBvState("array_len" , 16),
+            m.NewBvState("start_addr", 16),
+            m.NewBvState("array_len" , 16),
 
             // the memory: 160 bytes
-            auto mem = m.NewMemState("mem", 16, 10),
+            auto mem = m.NewMemState("mem", 8, 1),
 
             // the output
-            auto result = m.NewBvState("result", 1) 
+            m.NewBvState("result", 1) 
 
             // AES fetch function -- what corresponds to instructions
             // model.SetFetch(Concat(cmd, Concat(cmdaddr, cmddata)));
@@ -43,13 +43,13 @@ namespace max {
         { // START_ADDR
             auto instr = m.NewInstr("START_ADDR");
 
-            instr.SetDecode((mode == 1) & (addr_in == 0xA1));
+            instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA1));
 
-            instr.SetUpdate(start_addr, data_in); // update a start_addr
+            instr.SetUpdate(m.state("start_addr"), m.input("data_in")); // update a start_addr
 
             // guarantees no change
             // if not specified, it means it allows any change
-            instr.SetUpdate(array_len , array_len);
+            instr.SetUpdate(m.state("array_len") , m.state("array_len"));
 
         }
 
@@ -58,17 +58,17 @@ namespace max {
             // See child-ILA for details
             auto instr = m.NewInstr("ARRAY_LEN");
 
-            instr.SetDecode((mode == 1) & (addr_in == 0xA2)); // is addr_in meant to be a decode thing?
+            instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA2)); // is addr_in meant to be a decode thing?
             
-            instr.SetUpdate(array_len, data_in);
-            instr.SetUpdate(start_addr, start_addr);
+            instr.SetUpdate(m.state("array_len"), m.input("data_in"));
+            instr.SetUpdate(m.state("start_addr"), m.state("start_addr"));
 
         }
 
         { // MAX_COMPUTE
             auto instr = m.NewInstr("MAX_COMPUTE");
 
-            instr.SetDecode((mode == 1) & (addr_in == 0xA3));
+            instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA3));
             
             // do max computing work here 
             // must cycle through and do comparisions
@@ -90,25 +90,25 @@ namespace max {
                 }
             }
 
-            instr.SetUpdate(result, temp);
+            instr.SetUpdate(m.state("result"), temp);
 
             // guarantees no change when the instruction executes
             // if you don't write them, that means no guarantees
-            instr.SetUpdate(start_addr, start_addr);
-            instr.SetUpdate(array_len, array_len);
+            instr.SetUpdate(m.state("start_addr"), m.state("start_addr"));
+            instr.SetUpdate(m.state("array_len"), m.state("array_len"));
         }
 
         { // STORE_MAX
             auto instr = m.NewInstr("STORE_MAX");
 
-            instr.SetDecode(mode == 1);
+            instr.SetDecode(m.input("mode") == 1);
 
-            auto update_memory_at_addrin = ilang::Store(mem, addr_in, result);
+            auto update_memory_at_addrin = ilang::Store(mem, m.input("addr_in"), m.state("result"));
 
             // guarantee no change
-            instr.SetUpdate(start_addr, start_addr);
-            instr.SetUpdate(array_len, array_len);
-            instr.SetUpdate(result, result);
+            instr.SetUpdate(m.state("start_addr"), m.state("start_addr"));
+            instr.SetUpdate(m.state("array_len"), m.state("array_len"));
+            instr.SetUpdate(m.state("result"), m.state("result"));
 
         }
 
