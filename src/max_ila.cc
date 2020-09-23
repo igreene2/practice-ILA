@@ -25,7 +25,7 @@ namespace max {
             m.NewBvState("array_len" , 16),
 
             // the memory: 160 bytes
-            auto mem = m.NewMemState("mem", 8, 1),
+            m.NewMemState("mem", 8, 1),
 
             // the output
             m.NewBvState("result", 1) 
@@ -79,8 +79,8 @@ namespace max {
 
             int temp = 0; 
             // do I need to do any conversions here? like from binary??
-            for (int i = m.state("start_addr"); i < m.state("array_len"); i++) {
-                auto value_at_addr_i = ilang::Load(mem, i);
+            for (auto i = m.state("start_addr"); i < m.state("array_len"); i++) {
+                auto value_at_addr_i = ilang::Load(m.state("mem"), i);
                 if (value_at_addr_i > temp) {
                     temp = value_at_addr_i;
                 }
@@ -99,7 +99,7 @@ namespace max {
 
             instr.SetDecode(m.input("mode") == 1);
 
-            auto update_memory_at_addrin = ilang::Store(mem, m.input("addr_in"), m.state("result"));
+            auto update_memory_at_addrin = ilang::Store(m.state("mem"), m.input("addr_in"), m.state("result"));
 
             // guarantee no change
             instr.SetUpdate(m.state("start_addr"), m.state("start_addr"));
