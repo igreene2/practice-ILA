@@ -17,18 +17,18 @@ namespace max {
             // inputs
             // 0 - read, 1 - write
             m.NewBoolInput("mode");
-            m.NewBvInput("addr_in", 8),
-            m.NewBvInput("data_in", 8),
+            m.NewBvInput("addr_in", 8);
+            m.NewBvInput("data_in", 8);
 
             // internal arch state (registers)
-            m.NewBvState("start_addr", 16),
-            m.NewBvState("array_len" , 16),
+            m.NewBvState("start_addr", 16);
+            m.NewBvState("array_len" , 16);
 
             // the memory: 160 bytes
-            m.NewMemState("mem", 8, 1),
+            m.NewMemState("mem", 8, 1);
 
             // the output
-            m.NewBvState("result", 1) 
+            m.NewBvState("result", 1); 
 
             // AES fetch function -- what corresponds to instructions
             // model.SetFetch(Concat(cmd, Concat(cmdaddr, cmddata)));
@@ -87,7 +87,7 @@ namespace max {
                 auto temp = first_mem_value),
                 auto temp = second_mem_value)
                 
-                }
+                
             }
 
             instr.SetUpdate(m.state("result"), temp);
