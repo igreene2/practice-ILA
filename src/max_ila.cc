@@ -77,12 +77,16 @@ namespace max {
             // what exactly am I cycling through 
             // Accelerator has an internal memory size is 160 Byte (memory address range 0x0 ~ 0x9F).
 
-            int temp = 0; 
-            // do I need to do any conversions here? like from binary??
-            for (auto i = m.state("start_addr"); i < m.state("array_len"); i++) {
-                auto value_at_addr_i = ilang::Load(m.state("mem"), i);
-                if (value_at_addr_i > temp) {
-                    temp = value_at_addr_i;
+
+            // do I need to do any conversions here? like from binary?
+            // dummy i need to convert to if then elses and use their weird for loops 
+            for (auto i = m.state("start_addr"); i < m.state("array_len") - 1; i++) {
+                auto first_mem_value = ilang::Load(m.state("mem"), i);
+                auto second_mem_value = ilang::Load(m.state("mem"), m.state("start_addr") + 1);
+                ilang::Ite(first_mem_value < second_mem_value, 
+                auto temp = first_mem_value),
+                auto temp = second_mem_value)
+                
                 }
             }
 
