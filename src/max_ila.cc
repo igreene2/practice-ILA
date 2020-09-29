@@ -14,6 +14,7 @@ namespace max {
     Ila GetMaxIla(const std::string& model_name) {
             // construct the model
             auto m = ilang::Ila("MAX");
+            std::cout << "made MAX\n";
             // inputs
             // 0 - read, 1 - write
             m.NewBoolInput("mode");
@@ -36,12 +37,13 @@ namespace max {
             m.NewBvState("child_state", 2);
             m.AddInit(m.state("child_flag") == 0);
             m.AddInit(m.state("child_state") == 0);
-
+            std::cout << "declared all the state\n";
             // m is valid if...
             m.SetValid(m.input("start_addr") > 0x00 & m.input("start_addr") < 0xA4);
 
 
         { // START_ADDR
+            std::cout << "inside START_ADDR\n";
             auto instr = m.NewInstr("START_ADDR");
             instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA1));
 
@@ -55,6 +57,7 @@ namespace max {
 
 
         { // ARRAY_LEN
+            std::cout << "inside ARRAY_LEN\n";
             // See child-ILA for details
             auto instr = m.NewInstr("ARRAY_LEN");
             instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA2)); // is addr_in meant to be a decode thing?
