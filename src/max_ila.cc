@@ -18,8 +18,8 @@ namespace max {
             // inputs
             // 0 - read, 1 - write
             m.NewBoolInput("mode");
-            m.NewBvInput("addr_in", 8);
-            m.NewBvInput("data_in", 8);
+            m.NewBvInput("addr_in", 16);
+            m.NewBvInput("data_in", 16);
 
             // internal arch state (registers)
             m.NewBvState("start_addr", 16);
