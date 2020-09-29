@@ -11,6 +11,7 @@ int main() {
   SetToStdErr(1);
   // get the ILA model
   auto max = max::GetMaxIla("max");
+  std::cout << "successfully constructed max model";
 
   ILA_INFO << "#instr: " << max.instr_num();
   ILA_INFO << "#input: " << max.input_num();
@@ -19,7 +20,7 @@ int main() {
     ILA_INFO << "instr." << i << " " << max.instr(i);
   }
 
-  std::cout << "successfully constructed max model";
+  std::cout << "successfully printed state stuff";
 
   ExportSysCSim(max, "./sim_model", false);
 
