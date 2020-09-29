@@ -64,7 +64,7 @@ void DefineMaxChild(Ila& m) {
         instr.SetUpdate(byte_cnt, byte_cnt + 1);
         // if we've seen the array_len of bytes then we move to STORE, if not we move to COMPARE
         // check and make sure this logic works (we see all bytes)
-        instr.SetUpdate(m.state("child_state"), Ite(byte_cnt == m.state("array_len"), BvConst(3, 2), BvConst(1, 2))
+        instr.SetUpdate(m.state("child_state"), Ite(byte_cnt == m.state("array_len"), BvConst(3, 2), BvConst(1, 2)));
 
     }
 
@@ -76,7 +76,7 @@ void DefineMaxChild(Ila& m) {
         // if we've seen all the bytes then we can store the max into result 
         instr.SetUpdate(m.state("result"), max);
         // we no longer need to stay in child instructions so the flag is 0
-        instr.SetUpdate(m.state("child_flag"). BvConst(0, 1));
+        instr.SetUpdate(m.state("child_flag"), BvConst(0, 1));
         // byte_cnt remains the same 
         instr.SetUpdate(byte_cnt, byte_cnt);
         // check about updating all state variables in all instructions
@@ -92,4 +92,3 @@ void DefineMaxChild(Ila& m) {
 }; // namespace max
 
 }; // namespace ilang
-#endif // MAX_TOP_H__
