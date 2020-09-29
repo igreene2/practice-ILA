@@ -69,12 +69,13 @@ namespace max {
         }
 
         { // MAX_COMPUTE
+            std::cout << "inside MAX_COMPUTE\n";
             auto instr = m.NewInstr("MAX_COMPUTE");
             instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA3));
 
             instr.SetUpdate(m.state("child_flag"), BvConst(1, 1));
             instr.SetUpdate(m.state("child_state"), BvConst(0, 2));
-
+            std::cout << "going to the kiddies\n";
             DefineMaxChild(m);
 
             // guarantees no change when the instruction executes
@@ -84,6 +85,7 @@ namespace max {
         }
 
         { // STORE_MAX
+            std::cout << "inside STORE_MAX\n";
             auto instr = m.NewInstr("STORE_MAX");
             instr.SetDecode(m.input("mode") == 1); // check this condition
 

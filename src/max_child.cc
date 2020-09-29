@@ -22,8 +22,10 @@ void DefineMaxChild(Ila& m) {
     // make sure this is how you init to 0
     child.AddInit(byte_cnt == 0);
     child.AddInit(max == 0);
+    std::cout << "defined all the kiddie state\n";
 
     { // START (0) load first two from array 
+        std::cout << "inside START (child)\n";
         auto instr = child.NewInstr("START");
         instr.SetDecode(m.state("child_state") == BvConst(0, 2));
 
@@ -40,6 +42,7 @@ void DefineMaxChild(Ila& m) {
 
     // COMPARE (1) things loaded 
     {
+        std::cout << "inside COMPARE (child)\n";
         auto instr = child.NewInstr("COMPARE");
         instr.SetDecode(m.state("child_state") == BvConst(1, 2));
         // byte_cnt does not increase
@@ -55,6 +58,7 @@ void DefineMaxChild(Ila& m) {
 
     // LOAD (2) next array value to compare
     {   
+        std::cout << "inside LOAD (child) \n";
         auto instr = child.NewInstr("LOAD");
         instr.SetDecode(m.state("child_state") == BvConst(2, 2));
         
@@ -70,6 +74,7 @@ void DefineMaxChild(Ila& m) {
 
     // STORE (3) in result 
     {
+        std::cout << "inside STORE (child)\n";
         auto instr = child.NewInstr("STORE");
         instr.SetDecode(m.state("child_state") == BvConst(3, 2));
 
