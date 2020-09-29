@@ -28,9 +28,10 @@ void DefineMaxChild(Ila& m) {
         std::cout << "inside START (child)\n";
         auto instr = child.NewInstr("START");
         instr.SetDecode(m.state("child_state") == BvConst(0, 2));
-
+        std::cout << "inside START past decode\n";
         // add first byte at start_addr -> check thats how load works
         instr.SetUpdate(max, Load(m.state("mem"), m.state("start_addr")));
+        std::cout << "inside START past first load\n";
         // load the next byte after start_addr to compare to first
         instr.SetUpdate(compare, Load(m.state("mem"), m.state("start_addr") + 1));
         // update the byte_cnt to reflect the two bytes read
