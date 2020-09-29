@@ -39,7 +39,7 @@ namespace max {
             m.AddInit(m.state("child_state") == 0);
             std::cout << "declared all the state\n";
             // m is valid if...
-            m.SetValid(m.input("start_addr") > 0x00 & m.input("start_addr") < 0xA4);
+            m.SetValid(m.input("addr_in") > 0x00 & m.input("addr_in") < 0xA4);
             std::cout << "did the valid\n";
 
 
