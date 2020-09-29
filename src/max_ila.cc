@@ -27,7 +27,7 @@ namespace max {
 
             // the memory: 160 bytes
             // check on this declaration
-            m.NewMemState("mem", 8, 1);
+            m.NewMemState("mem", 16, 8);
 
             // the output
             m.NewBvState("result", 8); 
