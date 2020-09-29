@@ -28,7 +28,7 @@ void DefineMaxChild(Ila& m) {
         instr.SetDecode(m.state("child_state") == BvConst(0, 2));
 
         // add first byte at start_addr -> check thats how load works
-        instr.SetUpdate(max, Load(m.state("mem"), m.state("start_addr"));
+        instr.SetUpdate(max, Load(m.state("mem"), m.state("start_addr")));
         // load the next byte after start_addr to compare to first
         instr.SetUpdate(compare, Load(m.state("mem"), m.state("start_addr") + 1));
         // update the byte_cnt to reflect the two bytes read
