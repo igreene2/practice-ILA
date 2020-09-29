@@ -19,6 +19,8 @@ int main() {
     ILA_INFO << "instr." << i << " " << max.instr(i);
   }
 
+  std::cout << "successfully constructed max model";
+
   ExportSysCSim(max, "./sim_model", false);
 
   // // example - export ILA to Verilog

@@ -12,6 +12,7 @@ namespace max {
 
 Ila GetMaxIla(const std::string& model_name = "max");
 
+void DefineMaxChild(Ila& m);
 
 }; // namespace max
 

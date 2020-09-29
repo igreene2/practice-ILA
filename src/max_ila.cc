@@ -25,24 +25,24 @@ namespace max {
             m.NewBvState("array_len" , 16);
 
             // the memory: 160 bytes
+            // check on this declaration
             m.NewMemState("mem", 8, 1);
 
             // the output
-            m.NewBvState("result", 1); 
+            m.NewBvState("result", 8); 
 
-            // AES fetch function -- what corresponds to instructions
-            // model.SetFetch(Concat(cmd, Concat(cmdaddr, cmddata)));
-            // How should I do fetch function?
-            // I don't think I need to fetch because I'm not getting weird input from a processor
-            //m.SetFetch(Concat(mode, Concat(addr_in, data_in)));
-            
-            // Valid -> For all these instructions mode must be 1?
-            m.SetValid(mode == 1);
+            // internal state
+            m.NewBvState("child_flag", 1);
+            m.NewBvState("child_state", 2);
+            m.AddInit(m.state("child_flag") == 0);
+            m.AddInit(m.state("child_state") == 0);
 
-        // add instructions
+            // m is valid if...
+            m.SetValid(m.input("start_addr") > 0x00 & m.input("start_addr") < 0xA4);
+
+
         { // START_ADDR
             auto instr = m.NewInstr("START_ADDR");
-
             instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA1));
 
             instr.SetUpdate(m.state("start_addr"), m.input("data_in")); // update a start_addr
@@ -57,7 +57,6 @@ namespace max {
         { // ARRAY_LEN
             // See child-ILA for details
             auto instr = m.NewInstr("ARRAY_LEN");
-
             instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA2)); // is addr_in meant to be a decode thing?
             
             instr.SetUpdate(m.state("array_len"), m.input("data_in"));
@@ -67,30 +66,12 @@ namespace max {
 
         { // MAX_COMPUTE
             auto instr = m.NewInstr("MAX_COMPUTE");
-
             instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA3));
-            
-            // do max computing work here 
-            // must cycle through and do comparisions
-            // need to know where to start and how big data is
-            // just do like a for loop from start addr and cycle to array_len
-            // what exactly am I cycling through 
-            // Accelerator has an internal memory size is 160 Byte (memory address range 0x0 ~ 0x9F).
 
+            instr.SetUpdate(m.state("child_flag"), BvConst(1, 1));
+            instr.SetUpdate(m.state("child_state"), BvConst(0, 2));
 
-            // do I need to do any conversions here? like from binary?
-            // dummy i need to convert to if then elses and use their weird for loops 
-            for (auto i = m.state("start_addr"); i < m.state("array_len") - 1; i++) {
-                auto first_mem_value = ilang::Load(m.state("mem"), i);
-                auto second_mem_value = ilang::Load(m.state("mem"), m.state("start_addr") + 1);
-                ilang::Ite(first_mem_value < second_mem_value, 
-                auto temp = first_mem_value),
-                auto temp = second_mem_value)
-                
-                
-            }
-
-            instr.SetUpdate(m.state("result"), temp);
+            DefineMaxChild(m);
 
             // guarantees no change when the instruction executes
             // if you don't write them, that means no guarantees
@@ -100,8 +81,7 @@ namespace max {
 
         { // STORE_MAX
             auto instr = m.NewInstr("STORE_MAX");
-
-            instr.SetDecode(m.input("mode") == 1);
+            instr.SetDecode(m.input("mode") == 1); // check this condition
 
             auto update_memory_at_addrin = ilang::Store(m.state("mem"), m.input("addr_in"), m.state("result"));
 

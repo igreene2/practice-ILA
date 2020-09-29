@@ -29,6 +29,7 @@ find_package(ilang REQUIRED)
 add_executable(${MyTarget} 
   app/main.cc
   src/max_ila.cc
+  src/max_child.cc
 )
 
 target_include_directories(${MyTarget} PRIVATE include)
