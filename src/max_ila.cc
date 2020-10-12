@@ -50,9 +50,7 @@ namespace max {
 
             instr.SetUpdate(m.state("start_addr"), m.input("data_in")); // update a start_addr
 
-            // guarantees no change
-            // if not specified, it means it allows any change
-            instr.SetUpdate(m.state("array_len") , m.state("array_len"));
+            
 
         }
 
@@ -64,7 +62,7 @@ namespace max {
             instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") == 0xA2)); // is addr_in meant to be a decode thing?
             
             instr.SetUpdate(m.state("array_len"), m.input("data_in"));
-            instr.SetUpdate(m.state("start_addr"), m.state("start_addr"));
+           
 
         }
 
@@ -78,23 +76,17 @@ namespace max {
             std::cout << "going to the kiddies\n";
             DefineMaxChild(m);
 
-            // guarantees no change when the instruction executes
-            // if you don't write them, that means no guarantees
-            instr.SetUpdate(m.state("start_addr"), m.state("start_addr"));
-            instr.SetUpdate(m.state("array_len"), m.state("array_len"));
+       
         }
 
-        { // STORE_MAX
+        { // STORE_DATA
             std::cout << "inside STORE_MAX\n";
             auto instr = m.NewInstr("STORE_MAX");
             instr.SetDecode(m.input("mode") == 1); // check this condition
 
-            auto update_memory_at_addrin = ilang::Store(m.state("mem"), m.input("addr_in"), m.state("result"));
+            auto update_memory_at_addrin = Store(m.state("mem"), m.input("addr_in"), m.input("data_in"));
+            instr.SetUpdate(m.state("mem"), update_memory_at_addrin);
 
-            // guarantee no change
-            instr.SetUpdate(m.state("start_addr"), m.state("start_addr"));
-            instr.SetUpdate(m.state("array_len"), m.state("array_len"));
-            instr.SetUpdate(m.state("result"), m.state("result"));
 
         }
 

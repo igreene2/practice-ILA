@@ -64,6 +64,7 @@ void DefineMaxChild(Ila& m) {
         instr.SetDecode(m.state("child_state") == BvConst(2, 2));
         
         // load the next byte into compare 
+        // make sure byte_cnt here is correct first time we enter this loop
         instr.SetUpdate(compare, Load(m.state("mem"), m.state("start_addr") + byte_cnt));
         // increase the byte_cnt by 1
         instr.SetUpdate(byte_cnt, byte_cnt + 1);
@@ -81,11 +82,12 @@ void DefineMaxChild(Ila& m) {
 
         // if we've seen all the bytes then we can store the max into result 
         instr.SetUpdate(m.state("result"), max);
-        // we no longer need to stay in child instructions so the flag is 0
-        instr.SetUpdate(m.state("child_flag"), BvConst(0, 1));
         // byte_cnt remains the same 
         instr.SetUpdate(byte_cnt, byte_cnt);
-        // check about updating all state variables in all instructions
+        // we no longer need to stay in child instructions so the flag is 0
+        instr.SetUpdate(m.state("child_flag"), BvConst(0, 1));
+        
+        // check about updating all state variables in all instructions...
 
 
 
