@@ -86,7 +86,7 @@ namespace max {
 
             auto update_memory_at_addrin = Store(m.state("mem"), m.input("addr_in"), m.input("data_in"));
             instr.SetUpdate(m.state("mem"), update_memory_at_addrin);
-            std:cout << "outside STORE_DATA\n";
+            std::cout << "outside STORE_DATA\n";
 
 
         }
