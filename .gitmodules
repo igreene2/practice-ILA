@@ -1,0 +1,3 @@
+[submodule "testbench/3la_sim_testbench"]
+	path = testbench/3la_sim_testbench
+	url = https://github.com/LeeOHzzZ/3la_sim_testbench.git
