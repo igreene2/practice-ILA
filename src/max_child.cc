@@ -82,8 +82,6 @@ void DefineMaxChild(Ila& m) {
 
         // if we've seen all the bytes then we can store the max into result 
         instr.SetUpdate(m.state("result"), max);
-        // byte_cnt remains the same 
-        instr.SetUpdate(byte_cnt, byte_cnt);
         // we no longer need to stay in child instructions so the flag is 0
         instr.SetUpdate(m.state("child_flag"), BvConst(0, 1));
         
