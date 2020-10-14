@@ -6,7 +6,7 @@ CURDIR = $(shell pwd)
 
 CFLAGS += $(INCDIR)
 
-all: testbench.out 
+all: conv_testbench.out 
 
 clean:
 	rm -rf *.out *.o
@@ -31,5 +31,5 @@ LIBS = -lstdc++ -lsystemc -lboost_chrono -lboost_system
 
 CFLAGS_MAX = $(INCDIR) $(LIBDIR) -std=c++11 -g
 
-testbench.out : testbench.cc $(MAX_MODEL_DIR)/*.o $(MAX_SIM_DIR)/include/*.h
-	$(CC) $(CFLAGS_MAX) testbench.cc uninterpreted_func.o $(MAX_MODEL_DIR)/*.o -o testbench.out $(LIBS)
+testbench.out : conv_testbench.cc $(MAX_MODEL_DIR)/*.o $(MAX_SIM_DIR)/include/*.h
+	$(CC) $(CFLAGS_MAX) testbench.cc $(MAX_MODEL_DIR)/*.o -o conv_testbench.out $(LIBS)
