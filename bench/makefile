@@ -31,5 +31,5 @@ LIBS = -lstdc++ -lsystemc -lboost_chrono -lboost_system
 
 CFLAGS_MAX = $(INCDIR) $(LIBDIR) -std=c++11 -g
 
-testbench.out : conv_testbench.cc $(MAX_MODEL_DIR)/*.o $(MAX_SIM_DIR)/include/*.h
+conv_testbench.out : conv_testbench.cc $(MAX_MODEL_DIR)/*.o $(MAX_SIM_DIR)/include/*.h
 	$(CC) $(CFLAGS_MAX) testbench.cc $(MAX_MODEL_DIR)/*.o -o conv_testbench.out $(LIBS)
