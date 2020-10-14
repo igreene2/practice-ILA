@@ -5,7 +5,7 @@
 #include <sstream>
 
 #include "nlohmann/json.hpp"
-#include "max_ila.h"
+#include "MAX.h"
 
 using json = nlohmann::json;
 
@@ -64,7 +64,7 @@ SC_MODULE(Source) {
 
 SC_MODULE(testbench) {
   // SC_HAS_PROCESS(testbench);
-  max max_inst;
+  MAX max_inst;
   Source src;
 
   sc_clock clk;
@@ -144,7 +144,7 @@ SC_MODULE(testbench) {
 			int sim_addr = max_result["SPAD1 result"][i]["addr"];
       int sim_data = max_result["SPAD1 result"][i]["data"];
       int ila_addr = sim_addr - 0x24000;
-    //  cout << max_result["SPAD1 result"][i] << '\t' << sim_addr << '\t' << sim_data << endl;
+      cout << max_result["SPAD1 result"][i] << '\t' << sim_addr << '\t' << sim_data << endl;
       sc_biguint<8> byte_0 = max_inst.max_scratch_pad_1[ila_addr];
       sc_biguint<8> byte_1 = max_inst.max_scratch_pad_1[ila_addr+1];
     	sc_biguint<16> data = byte_1;
