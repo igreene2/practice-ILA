@@ -12,7 +12,7 @@ clean:
 	rm -rf *.out *.o
 
 MAX_SIM_DIR = /home/workspace/practice-ILA/build/sim_model
-MAX_MODEL_DIR = $(VTA_SIM_DIR)/build/CMakeFiles/MAX.dir/src
+MAX_MODEL_DIR = $(MAX_SIM_DIR)/build/CMakeFiles/MAX.dir/src
 
 AP_INCLUDE = $(CURDIR)/ap_include
 SYSTEMC_HOME = /ibuild/systemc-2.3.3
