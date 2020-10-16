@@ -12,12 +12,10 @@ using json = nlohmann::json;
 SC_MODULE(Source) {
   sc_in<bool> clk{"clk"};
 
-  sc_out< sc_biguint<1> > max_if_wr;
-  sc_out< sc_biguint<1> > max_if_rd;
-  sc_out< sc_biguint<32> > max_addr_in;
-  sc_out< sc_biguint<8> > max_data_in[16];
+  sc_signal< sc_biguint<16> > MAX_data_in;
+  sc_signal< bool > MAX_mode_sig;
+  sc_signal< sc_biguint<16> > MAX_addr_in[16];
 
-  sc_out< sc_biguint<1> > input_done;
 
   SC_CTOR(Source) {
     SC_THREAD(source_input);
@@ -68,48 +66,48 @@ SC_MODULE(testbench) {
   Source src;
 
   sc_clock clk;
-  sc_signal< sc_biguint<1> > _if_wr_signal;
-  sc_signal< sc_biguint<1> > max_if_rd_signal;
-  sc_signal< sc_biguint<32> > max_addr_signal;
-  sc_signal< sc_biguint<8> > max_data_signal[16];
 
-  sc_signal< sc_biguint<1> > input_done;
+  sc_signal< sc_biguint<16> > MAX_data_in_sig;
+  sc_signal< bool > MAX_mode_sig;
+  sc_signal< sc_biguint<16> > MAX_addr_in_sig[16];
+
 
   SC_CTOR(testbench) :
     clk("clk", 1, SC_NS),
-    max_inst("max_inst"),
+    max_inst("MAX"),
     src("source")
   {
-    // binding the signals
+    // binding the signals 
     src.clk(clk);
-    src.max_if_rd(max_if_rd_signal);
-    src.max_if_wr(max_if_wr_signal);
-    src.max_addr_in(max_addr_signal);
+    src.MAX_mode(MAX_mode_sig);
+    src.MAX_addr_in(MAX_addr_in_sig);
     for (int i = 0; i < 16; i++) {
-      src.max_data_in[i](max_data_signal[i]);
+      src.MAX_data_in[i](max_data_sig[i]);
     }
-    src.input_done(input_done);
+
 
     // // connecting signals to max
-    max_inst.max_if_rd_in(max_if_rd_signal);
-    max_inst.max_if_wr_in(max_if_wr_signal);
-    max_inst.max_addr_in_in(max_addr_signal);
-    max_inst.max_data_in_0_in(max_data_signal[0]);
-    max_inst.max_data_in_1_in(max_data_signal[1]);
-    max_inst.max_data_in_2_in(max_data_signal[2]);
-    max_inst.max_data_in_3_in(max_data_signal[3]);
-    max_inst.max_data_in_4_in(max_data_signal[4]);
-    max_inst.max_data_in_5_in(max_data_signal[5]);
-    max_inst.max_data_in_6_in(max_data_signal[6]);
-    max_inst.max_data_in_7_in(max_data_signal[7]);
-    max_inst.max_data_in_8_in(max_data_signal[8]);
-    max_inst.max_data_in_9_in(max_data_signal[9]);
-    max_inst.max_data_in_10_in(max_data_signal[10]);
-    max_inst.max_data_in_11_in(max_data_signal[11]);
-    max_inst.max_data_in_12_in(max_data_signal[12]);
-    max_inst.max_data_in_13_in(max_data_signal[13]);
-    max_inst.max_data_in_14_in(max_data_signal[14]);
-    max_inst.max_data_in_15_in(max_data_signal[15]);
+    max_inst.MAX_mode(MAX_mode_sig);
+    max_inst.MAX_addr_in(MAX_addr_in_sig);
+    max_inst.max_addr_in_in(max_addr_in_sig);
+    max_inst.max_data_in_0_in(max_data_sig[0]);
+    max_inst.max_data_in_1_in(max_data_sig[1]);
+    max_inst.max_data_in_2_in(max_data_sig[2]);
+    max_inst.max_data_in_3_in(max_data_sig[3]);
+    max_inst.max_data_in_4_in(max_data_sig[4]);
+    max_inst.max_data_in_5_in(max_data_sig[5]);
+    max_inst.max_data_in_6_in(max_data_sig[6]);
+    max_inst.max_data_in_7_in(max_data_sig[7]);
+    max_inst.max_data_in_8_in(max_data_sig[8]);
+    max_inst.max_data_in_9_in(max_data_sig[9]);
+    max_inst.max_data_in_10_in(max_data_sig[10]);
+    max_inst.max_data_in_11_in(max_data_sig[11]);
+    max_inst.max_data_in_12_in(max_data_sig[12]);
+    max_inst.max_data_in_13_in(max_data_sig[13]);
+    max_inst.max_data_in_14_in(max_data_sig[14]);
+    max_inst.max_data_in_15_in(max_data_sig[15]);
+
+    max_inst.instr_log;
 
 
     SC_THREAD(run);
