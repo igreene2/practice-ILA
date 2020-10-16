@@ -16,6 +16,8 @@ SC_MODULE(Source) {
   sc_signal< bool > MAX_mode_sig;
   sc_signal< sc_biguint<16> > MAX_addr_in[16];
 
+  sc_out < sc_biguint<1> > input_done;
+
 
   SC_CTOR(Source) {
     SC_THREAD(source_input);
@@ -71,6 +73,8 @@ SC_MODULE(testbench) {
   sc_signal< bool > MAX_mode_sig;
   sc_signal< sc_biguint<16> > MAX_addr_in_sig[16];
 
+  sc_signal< sc_biguint<1> > input_done;
+
 
   SC_CTOR(testbench) :
     clk("clk", 1, SC_NS),
@@ -82,12 +86,13 @@ SC_MODULE(testbench) {
     src.MAX_mode(MAX_mode_sig);
     src.MAX_addr_in(MAX_addr_in_sig);
     src.MAX_data_in(MAX_data_in_sig);
+    src.input_done(input_done);
    
 
     // // connecting signals to max
     max_inst.MAX_mode(MAX_mode_sig);
     max_inst.MAX_addr_in(MAX_addr_in_sig);
-    max_inst.MAX_data_in(MAX_data_in_sig[0]);
+    max_inst.MAX_data_in(MAX_data_in_sig);
 
     max_inst.instr_log;
 
