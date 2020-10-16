@@ -76,9 +76,9 @@ SC_MODULE(testbench) {
   {
     // binding the signals 
     src.clk(clk);
-    src.MAX_mode_in(MAX_mode_sig);
-    src.MAX_addr_in_in(MAX_addr_in_sig);
-    src.MAX_data_in_in(MAX_data_in_sig);
+    src.MAX_mode(MAX_mode_sig);
+    src.MAX_addr_in(MAX_addr_in_sig);
+    src.MAX_data_in(MAX_data_in_sig);
     src.input_done(input_done);
     
 
