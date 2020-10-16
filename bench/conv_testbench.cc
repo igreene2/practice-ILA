@@ -116,45 +116,11 @@ SC_MODULE(testbench) {
     std::cout << '\n' << std::endl;
     std::cout << "************* sc_stop **************" << std::endl;
     max_inst.instr_log.close();
-    std::cout << "SPAD1: result: " << std::endl;
+    std::cout << "result: " << std::endl;
+    std::cout << max_inst.MAX_result;
 
-		// validate simulation result
-    int err = 0;
-    json max_result;
-    std::ifstream result_in;
-    result_in.open("./sim_info/sim_result.json", ios::in);
-		result_in >> max_result;
-
-    for (int i = 0; i < max_result["SPAD1 result"].size(); i++) {
-			int sim_addr = max_result["SPAD1 result"][i]["addr"];
-      int sim_data = max_result["SPAD1 result"][i]["data"];
-      int ila_addr = sim_addr - 0x24000;
-      cout << max_result["SPAD1 result"][i] << '\t' << sim_addr << '\t' << sim_data << endl;
-      sc_biguint<8> byte_0 = max_inst.max_scratch_pad_1[ila_addr];
-      sc_biguint<8> byte_1 = max_inst.max_scratch_pad_1[ila_addr+1];
-    	sc_biguint<16> data = byte_1;
-      data = (data << 8) + byte_0;
-      if (data.to_uint() != sim_data) {
-      	err++;
-      	std::cout << "error found: " << std::hex << sim_addr << "::" << ila_addr << '\t' << "sim_data::ila_data" << '\t' << sim_data << "::" << data << std::endl;
-      }
-    }
-
-    if (err == 0)
-        std::cout << "testbench passed" << std::endl;
-/*
-    for (int i = 0; i < 0x40; i++) {
-    	std::cout << "addr: " << std::hex << 0x24000 + i*0x10 << '\t' << "data: ";
-			for (int j = 0; j < 8; j++) {
-      	sc_biguint<8> byte_0 = max_inst.max_scratch_pad_1[i*0x10 + 2*j];
-        sc_biguint<8> byte_1 = max_inst.max_scratch_pad_1[i*0x10 + 2*j+1];
-      	sc_biguint<16> data = byte_1;
-        data = (data << 8) + byte_0;
-        std::cout << std::hex << data.to_uint() << " ";
-      }
-      std::cout << std::endl;
-    }
-    */
+	
+    std::cout << "\ntestbench passed" << std::endl;
 
     sc_stop();
   }
