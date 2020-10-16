@@ -62,8 +62,8 @@ SC_MODULE(testbench) {
 
   sc_clock clk;
 
-  sc_signal< sc_biguint<16> > MAX_data_in_sig;
   sc_signal< bool > MAX_mode_sig;
+  sc_signal< sc_biguint<16> > MAX_data_in_sig;
   sc_signal< sc_biguint<16> > MAX_addr_in_sig;
 
   sc_signal< sc_biguint<1> > input_done;
@@ -76,9 +76,9 @@ SC_MODULE(testbench) {
   {
     // binding the signals 
     src.clk(clk);
-    src.MAX_mode(MAX_mode_sig);
-    src.MAX_addr_in(MAX_addr_in_sig);
-    src.MAX_data_in(MAX_data_in_sig);
+    src.MAX_mode_in(MAX_mode_sig);
+    src.MAX_addr_in_in(MAX_addr_in_sig);
+    src.MAX_data_in_in(MAX_data_in_sig);
     src.input_done(input_done);
     
 
