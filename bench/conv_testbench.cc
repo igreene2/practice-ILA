@@ -89,23 +89,22 @@ SC_MODULE(testbench) {
     // // connecting signals to max
     max_inst.MAX_mode(MAX_mode_sig);
     max_inst.MAX_addr_in(MAX_addr_in_sig);
-    max_inst.max_addr_in_in(max_addr_in_sig);
-    max_inst.max_data_in_0_in(max_data_sig[0]);
-    max_inst.max_data_in_1_in(max_data_sig[1]);
-    max_inst.max_data_in_2_in(max_data_sig[2]);
-    max_inst.max_data_in_3_in(max_data_sig[3]);
-    max_inst.max_data_in_4_in(max_data_sig[4]);
-    max_inst.max_data_in_5_in(max_data_sig[5]);
-    max_inst.max_data_in_6_in(max_data_sig[6]);
-    max_inst.max_data_in_7_in(max_data_sig[7]);
-    max_inst.max_data_in_8_in(max_data_sig[8]);
-    max_inst.max_data_in_9_in(max_data_sig[9]);
-    max_inst.max_data_in_10_in(max_data_sig[10]);
-    max_inst.max_data_in_11_in(max_data_sig[11]);
-    max_inst.max_data_in_12_in(max_data_sig[12]);
-    max_inst.max_data_in_13_in(max_data_sig[13]);
-    max_inst.max_data_in_14_in(max_data_sig[14]);
-    max_inst.max_data_in_15_in(max_data_sig[15]);
+    max_inst.max_data_in_0_in(max_data_in_sig[0]);
+    max_inst.max_data_in_1_in(max_data_in_sig[1]);
+    max_inst.max_data_in_2_in(max_data_in_sig[2]);
+    max_inst.max_data_in_3_in(max_data_in_sig[3]);
+    max_inst.max_data_in_4_in(max_data_in_sig[4]);
+    max_inst.max_data_in_5_in(max_data_in_sig[5]);
+    max_inst.max_data_in_6_in(max_data_in_sig[6]);
+    max_inst.max_data_in_7_in(max_data_in_sig[7]);
+    max_inst.max_data_in_8_in(max_data_in_sig[8]);
+    max_inst.max_data_in_9_in(max_data_in_sig[9]);
+    max_inst.max_data_in_10_in(max_data_in_sig[10]);
+    max_inst.max_data_in_11_in(max_data_in_sig[11]);
+    max_inst.max_data_in_12_in(max_data_in_sig[12]);
+    max_inst.max_data_in_13_in(max_data_in_sig[13]);
+    max_inst.max_data_in_14_in(max_data_in_sig[14]);
+    max_inst.max_data_in_15_in(max_data_in_sig[15]);
 
     max_inst.instr_log;
 
