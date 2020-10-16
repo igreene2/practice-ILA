@@ -71,7 +71,7 @@ SC_MODULE(testbench) {
 
   SC_CTOR(testbench) :
     clk("clk", 1, SC_NS),
-    max_inst("MAX"),
+    max_inst("max_inst"),
     src("source")
   {
     // binding the signals 
