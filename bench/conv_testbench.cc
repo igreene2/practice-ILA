@@ -13,8 +13,8 @@ SC_MODULE(Source) {
   sc_in<bool> clk{"clk"};
 
   sc_signal< sc_biguint<16> > MAX_data_in;
-  sc_signal< bool > MAX_mode_sig;
-  sc_signal< sc_biguint<16> > MAX_addr_in[16];
+  sc_signal< bool > MAX_mode;
+  sc_signal< sc_biguint<16> > MAX_addr_in;
 
   sc_out < sc_biguint<1> > input_done;
 
@@ -26,12 +26,9 @@ SC_MODULE(Source) {
 
   void source_input() {
     // reset the port
-    max_if_wr = 0;
-    max_if_rd = 0;
-    max_addr_in = 0;
-    for (auto i = 0; i < 16; i++) {
-      max_data_in[i] = 0;
-    }
+    MAX_data_in = 0;
+    MAX_mode = 0;
+    MAX_addr_in= 0;
 
     input_done = 0;
     // read program fragment from file
@@ -44,16 +41,12 @@ SC_MODULE(Source) {
 
     // pass the command to the ports
     for (int i = 0; i < cmd_seq["program fragment"].size(); i++) {
-      max_if_rd = std::stoi(cmd_seq["program fragment"][i]["is_rd"].get<std::string>(), nullptr, 16);
-      max_if_wr = std::stoi(cmd_seq["program fragment"][i]["is_wr"].get<std::string>(), nullptr, 16);
-      // fetch the address
+      MAX_mode = std::stoi(cmd_seq["program fragment"][i]["mode"].get<std::string>(), nullptr, 16);
       std::string addr = cmd_seq["program fragment"][i]["addr"].get<std::string>();
-      max_addr_in = std::stoi(addr, nullptr, 16);
+      MAX_addr_in = std::stoi(addr, nullptr, 16);
       // extract each data byte from data
-      std::string data = cmd_seq["program fragment"][i]["data"].get<std::string>();
-      for (int j = 0; j < 16; j++) {
-        max_data_in[j] = std::stoi(data.substr(30-2*j,2), nullptr, 16);
-      }
+      MAX_data_in = std::stoi(cmd_seq["program fragment"][i]["data"].get<std::string>(), nullptr, 16);
+     
       wait(10, SC_NS);
     }
 
@@ -71,7 +64,7 @@ SC_MODULE(testbench) {
 
   sc_signal< sc_biguint<16> > MAX_data_in_sig;
   sc_signal< bool > MAX_mode_sig;
-  sc_signal< sc_biguint<16> > MAX_addr_in_sig[16];
+  sc_signal< sc_biguint<16> > MAX_addr_in_sig;
 
   sc_signal< sc_biguint<1> > input_done;
 
