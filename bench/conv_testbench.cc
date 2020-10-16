@@ -83,9 +83,9 @@ SC_MODULE(testbench) {
    
 
     // // connecting signals to max
-    max_inst.MAX_mode(MAX_mode_sig);
-    max_inst.MAX_addr_in(MAX_addr_in_sig);
-    max_inst.MAX_data_in(MAX_data_in_sig);
+    max_inst.MAX_mode_in(MAX_mode_sig);
+    max_inst.MAX_addr_in_in(MAX_addr_in_sig);
+    max_inst.MAX_data_in_in(MAX_data_in_sig);
 
     max_inst.instr_log;
 
