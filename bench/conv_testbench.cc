@@ -12,9 +12,9 @@ using json = nlohmann::json;
 SC_MODULE(Source) {
   sc_in<bool> clk{"clk"};
 
-  sc_signal< sc_biguint<16> > MAX_data_in;
-  sc_signal< bool > MAX_mode;
-  sc_signal< sc_biguint<16> > MAX_addr_in;
+  sc_out< sc_biguint<16> > MAX_data_in;
+  sc_out< bool > MAX_mode;
+  sc_out< sc_biguint<16> > MAX_addr_in;
 
   sc_out < sc_biguint<1> > input_done;
 
