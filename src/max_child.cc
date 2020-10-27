@@ -1,6 +1,7 @@
 #include <ilang/ilang++.h>
 #include <max_ila.h>
 #include <ilang/util/log.h>
+#include <uninterpreted_func.h>
 
 namespace ilang {
 namespace max {
@@ -51,7 +52,7 @@ void DefineMaxChild(Ila& m) {
         // compare does not change 
         instr.SetUpdate(compare, compare);
         // set max to be larger of max and compare 
-        instr.SetUpdate(max, Ite(max > compare, max, compare));
+        instr.SetUpdate(max, Greatest(max, compare));
         // move to LOAD state
         instr.SetUpdate(m.state("child_state"), BvConst(2, 2));
 
