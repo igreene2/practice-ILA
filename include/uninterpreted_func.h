@@ -8,9 +8,9 @@ namespace ilang {
 namespace max {
 
 
-static auto signed_type = SortRef::BV(16);
-static auto comp1 = SortRef::BV(16);
-static auto comp2 = SortRef::BV(16);
+static auto signed_type = SortRef::BV(8);
+static auto comp1 = SortRef::BV(8);
+static auto comp2 = SortRef::BV(8);
 
 static FuncRef Greatest("Greatest", signed_type, comp1, comp2);
 
