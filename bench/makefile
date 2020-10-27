@@ -15,7 +15,7 @@ MAX_SIM_DIR = /root/workspace/practice-ILA/build/sim_model
 MAX_MODEL_DIR = $(MAX_SIM_DIR)/build/CMakeFiles/MAX.dir/src
 MAX_INCL_DIR = $(MAX_SIM_DIR)/include
 
-AP_INCLUDE = $(CURDIR)/ap_includes
+AP_INCLUDE = /root/workspace/practice-ILA/bench/ap_includes
 SYSTEMC_HOME = /ibuild/systemc-2.3.3
 BOOST_HOME = /usr/local
 
