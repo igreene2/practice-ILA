@@ -3,25 +3,25 @@
         {
             "_instr_No.": 0,
             "addr": "0x00",
-            "data": "-0x01",
+            "data": "-0x02",
             "mode": "1"
         },
         {
             "_instr_No.": 1,
             "addr": "0x01",
-            "data": "-0x01",
+            "data": "-0x03",
             "mode": "1"
         },
         {
             "_instr_No.": 2,
             "addr": "0x02",
-            "data": "-0x02",
+            "data": "-0x04",
             "mode": "1"
         },
         {
             "_instr_No.": 3,
             "addr": "0x03",
-            "data": "-0x03",
+            "data": "-0x04",
             "mode": "1"
         },
         {
