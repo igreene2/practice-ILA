@@ -41,12 +41,15 @@ template<typename _Tp> class complex;
 namespace std {
 /*
    Specialize std::complex<ap_int> to zero initialization ap_int.
+
    To reduce the area cost, ap_int is not zero initialized, just like basic
    types float or double. However, libstdc++ provides specialization for float,
    double and long double, initializing image part to 0 when not specified.
+
    This has become a difficulty in switching legacy code from these C types to
    ap_int. To ease the tranform of legacy code, we have to implement
    specialization of std::complex<> for our type.
+
    As ap_int is a template, it is impossible to specialize only the methods
    that causes default initialization of value type in std::complex<>. An
    explicit full specialization of the template class has to be done, covering
