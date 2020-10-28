@@ -3,19 +3,19 @@
         {
             "_instr_No.": 0,
             "addr": "0x00",
-            "data": "-0x02",
+            "data": "-0x01",
             "mode": "1"
         },
         {
             "_instr_No.": 1,
             "addr": "0x01",
-            "data": "-0x03",
+            "data": "-0x02",
             "mode": "1"
         },
         {
             "_instr_No.": 2,
             "addr": "0x02",
-            "data": "-0x04",
+            "data": "-0x03",
             "mode": "1"
         },
         {
@@ -27,37 +27,37 @@
         {
             "_instr_No.": 4,
             "addr": "0x04",
-            "data": "-0x04",
+            "data": "-0x05",
             "mode": "1"
         },
         {
             "_instr_No.": 5,
             "addr": "0x05",
-            "data": "-0x05",
+            "data": "-0x06",
             "mode": "1"
         },
         {
             "_instr_No.": 6,
             "addr": "0x06",
-            "data": "-0xF",
+            "data": "-0x07",
             "mode": "1"
         },
         {
             "_instr_No.": 7,
             "addr": "0x07",
-            "data": "-0xF",
+            "data": "-0x08",
             "mode": "1"
         },
         {
             "_instr_No.": 8,
             "addr": "0x08",
-            "data": "-0xF",
+            "data": "-0x09",
             "mode": "1"
         },
         {
             "_instr_No.": 9,
             "addr": "0x09",
-            "data": "-0xF",
+            "data": "-0x0A",
             "mode": "1"
         },
         {
