@@ -39,25 +39,25 @@
         {
             "_instr_No.": 6,
             "addr": "0x06",
-            "data": "-0x06",
+            "data": "0xF",
             "mode": "1"
         },
         {
             "_instr_No.": 7,
             "addr": "0x07",
-            "data": "-0x07",
+            "data": "0xF",
             "mode": "1"
         },
         {
             "_instr_No.": 8,
             "addr": "0x08",
-            "data": "-0x08",
+            "data": "0xF",
             "mode": "1"
         },
         {
             "_instr_No.": 9,
             "addr": "0x09",
-            "data": "-0x09",
+            "data": "0xF",
             "mode": "1"
         },
         {
@@ -69,7 +69,7 @@
         {
             "_instr_No.": 11,
             "addr": "0xA2",
-            "data": "0x09",
+            "data": "0x0A",
             "mode": "1"
         },
         {
