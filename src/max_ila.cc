@@ -82,7 +82,7 @@ namespace max {
         { // STORE_DATA
             std::cout << "inside STORE_DATA\n";
             auto instr = m.NewInstr("STORE_DATA");
-            instr.SetDecode(m.input("mode") == 1); // check this condition
+            instr.SetDecode((m.input("mode") == 1) & (m.input("addr_in") != 0xA1) & (m.input("addr_in") != 0xA2) & (m.input("addr_in") != 0xA3)); // check this condition
 
             auto update_memory_at_addrin = Store(m.state("mem"), m.input("addr_in"), m.input("data_in"));
             instr.SetUpdate(m.state("mem"), update_memory_at_addrin);
