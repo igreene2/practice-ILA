@@ -112,6 +112,18 @@ SC_MODULE(testbench) {
     std::cout << "result: " << std::endl;
     std::cout << max_inst.MAX_result;
 
+ 
+    json hlscnn_result;
+    std::ifstream result_in;
+    result_in.open("./sim_info/sim_result.json", ios::in);
+		result_in >> hlscnn_result;
+
+    for (int i = 0; i < hlscnn_result["result"].size(); i++) {
+			int sim_addr = hlscnn_result["SPAD1 result"][i]["addr"];
+      int sim_data = hlscnn_result["SPAD1 result"][i]["data"];
+    }
+  
+
 	
     std::cout << "\ntestbench passed" << std::endl;
 
